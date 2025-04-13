@@ -24,12 +24,23 @@ function render(type) {
 			const [_, name, url] = item.split(delimiter);
 			const div = document.createElement('div');
 			div.addEventListener('click', () => {
-				const emojiMarkdown = `[${name}](${url})`
-				navigator.clipboard.writeText(emojiMarkdown).then(() => {
-					console.log(`Copied: ${name}`);
-				}).catch(err => {
-					console.error('Failed to copy: ', err);
-				});
+				const emojiMarkdown = `[${name}](${url})`;
+
+				navigator.clipboard
+					.writeText(emojiMarkdown)
+					.then(() => {
+						console.log(`Copied: ${name}`);
+						chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+							chrome.tabs.sendMessage(tabs[0].id, {
+								action: 'insertMarkdown',
+								payload: emojiMarkdown,
+							});
+						});
+						window.close();
+					})
+					.catch(err => {
+						console.error('Failed to copy: ', err);
+					});
 			});
 			div.className = 'emoji-item';
 			div.innerHTML = `<img src="${url}" alt="${name}">`;
