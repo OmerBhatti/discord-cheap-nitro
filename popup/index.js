@@ -77,6 +77,21 @@ function render(type) {
 			deleteBtn.innerHTML = 'X';
 			deleteBtn.className = 'delete-btn';
 			deleteBtn.title = 'Delete this emoji';
+			deleteBtn.style.visibility = 'hidden';
+
+			div.onmouseenter = () => {
+				deleteBtn.style.visibility = 'visible';
+			}
+			div.onmouseleave = () => {
+				deleteBtn.style.visibility = 'hidden';
+			}
+			deleteBtn.onmouseenter = () => {
+				deleteBtn.style.visibility = 'visible';
+			}
+			deleteBtn.onmouseleave = () => {
+				deleteBtn.style.visibility = 'hidden';
+			}
+
 			deleteBtn.addEventListener('click', e => {
 				e.stopPropagation(); // So clicking delete doesn't trigger copy
 				chrome.storage.local.get({ savedEmojis: [] }, result => {

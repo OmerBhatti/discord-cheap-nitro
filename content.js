@@ -47,8 +47,24 @@ function addDownloadButtons() {
 			const btn = document.createElement('button');
 			btn.textContent = '⬇️';
 			btn.className = 'cheap-nitro-downloader-btn';
+            
+            btn.style.visibility = 'hidden';
+            img.onmouseenter = () => {
+                btn.style.visibility = 'visible';
+            }
+            btn.onmouseenter = () => {
+                btn.style.visibility = 'visible';
+            }
+            btn.onmouseleave = () => {
+                btn.style.visibility = 'hidden';
+            }
+            img.onmouseleave = () => {
+                btn.style.visibility = 'hidden';
+            }
 
-			btn.onclick = () => {
+			btn.onclick = event => {
+                event.stopPropagation();
+
 				const name = img.alt;
 				const emojiUrl = img.src;
 				const dta = `${type}${delimiter}${name}${delimiter}${emojiUrl}`;
