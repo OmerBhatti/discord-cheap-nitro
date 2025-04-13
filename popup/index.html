@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>Saved Emojis</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      width: 300px;
+      padding: 10px;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 6px;
+      cursor: pointer;
+      background: #eee;
+      border-radius: 4px 4px 0 0;
+    }
+    .tab.active {
+      background: #ccc;
+      font-weight: bold;
+    }
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      border-radius: 0 0 4px 4px;
+      padding: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .emoji-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 10px;
+      transition: all 0.2s ease-in-out;
+    }
+    .emoji-item:hover {
+      opacity: 0.9;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+    .emoji-item img {
+      margin-right: 5px;
+      margin-bottom: 5px;
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs">
+    <div class="tab active" data-tab="emoji">Emoji</div>
+    <div class="tab" data-tab="sticker">Stickers</div>
+  </div>
+  <div class="content" id="content"></div>
+
+  <script src="index.js"></script>
+</body>
+</html>
