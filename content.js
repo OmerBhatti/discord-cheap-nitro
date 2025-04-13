@@ -10,7 +10,7 @@ function showToast(message) {
 	toast.style.padding = '10px 15px';
 	toast.style.borderRadius = '8px';
 	toast.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-	toast.style.zIndex = 9999;
+	toast.style.zIndex = 9999999;
 	toast.style.opacity = '0';
 	toast.style.transition = 'opacity 0.3s ease';
 
@@ -35,27 +35,35 @@ const delimiter = '][';
 function addDownloadButtons() {
 	document.querySelectorAll('img').forEach(img => {
 		if (
-			img.alt?.startsWith(':') &&
-			img.src?.includes('emoji') &&
-			!img.parentElement.querySelector('.emoji-downloader-btn')
+			(img.alt?.startsWith(':') || img.alt.startsWith('Sticker,')) &&
+			(img.src?.includes('emoji') || img.src.includes('sticker')) &&
+			!img.parentElement.querySelector('.cheap-nitro-downloader-btn')
 		) {
+            let type = "emoji"
+            if (img.src.includes('sticker')) {
+                type = "sticker"
+            }
+
 			const btn = document.createElement('button');
 			btn.textContent = '⬇️';
-			btn.className = 'emoji-downloader-btn';
+			btn.className = 'cheap-nitro-downloader-btn';
 
 			btn.onclick = () => {
 				const name = img.alt;
 				const emojiUrl = img.src;
-				const dta = `emoji${delimiter}${name}${delimiter}${emojiUrl}`;
+				const dta = `${type}${delimiter}${name}${delimiter}${emojiUrl}`;
 
 				chrome.storage.local.get({ savedEmojis: [] }, result => {
 					let saved = result.savedEmojis;
 					if (!saved.includes(dta)) {
 						saved.push(dta);
 						chrome.storage.local.set({ savedEmojis: saved }, () => {
-							showToast(`Saved: ${name}`);
+							showToast(`${type} saved in extension!`);
 						});
 					}
+                    else {
+                        showToast(`Already saved`);
+                    }
 				});
 			};
 
@@ -68,10 +76,3 @@ function addDownloadButtons() {
 const observer = new MutationObserver(addDownloadButtons);
 observer.observe(document.body, { childList: true, subtree: true });
 addDownloadButtons();
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	if (request.action === 'insertMarkdown') {
-		showToast(`Copied to clipboard. Press CTRL + V to paste.`);
-		sendResponse({ status: 'success', message: 'Pasted from clipboard.' });
-	}
-});
