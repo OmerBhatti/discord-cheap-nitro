@@ -2,8 +2,9 @@
 
 A Chrome extension that adds a small download button to every emoji on Discord. Clicking it saves the emoji's markdown (e.g. `:custom_emoji:`) in your local storage and displays them in the extension popup. You can copy or auto-insert them into the message input box.
 
-![image](https://github.com/user-attachments/assets/8ebb794c-a1ba-4c79-a20d-9fe76f5522b9)
-![image](https://github.com/user-attachments/assets/a4bb926f-58ee-4c4b-b4ee-d20b41082b28)
+![image](https://github.com/user-attachments/assets/117d638b-ea21-4fbd-b300-f96be191212d)
+![image](https://github.com/user-attachments/assets/a13404d1-5305-454e-85a0-b1cd1c9cf94c)
+
 
 ---
 
